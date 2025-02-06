@@ -1,10 +1,5 @@
-$highlight_theme = hexo-config('highlight_theme')
-if $highlight_theme == 'light'
-  $highlight-deletion = #fdd
-  $highlight-addition = #dfd
-else
-  $highlight-deletion = #008000
-  $highlight-addition = #800000
+$highlight-deletion = #fdd
+$highlight-addition = #dfd
 
 random-color($min, $max) {
   return floor(math(0, 'random') * ($max - $min + 1) + $min);

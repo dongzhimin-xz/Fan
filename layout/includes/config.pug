@@ -54,6 +54,12 @@
         }
         twikoo = JSON.stringify(obj);
         break;
+      case "staticman":
+        var obj={};
+        for(var key in config.comments.staticman){
+          obj[key] = config.comments.staticman[key];
+        }
+        staticman = JSON.stringify(obj);
     }
   }
 
@@ -70,4 +76,5 @@ script.
     gitment: !{gitment},
     valine: !{valine},
     twikoo: !{twikoo},
+    staticman: !{staticman},
   }

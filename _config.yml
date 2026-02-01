@@ -114,6 +114,6 @@ post_copyright:
 
 # 评论
 comments:
-  enable: false
-  # 使用哪种评论插件["gitment", "valine","twikoo"]
-  type: "valine"
+  enable: true
+  # 使用哪种评论插件["gitment", "valine","twikoo","staticman"]
+  type: "staticman"

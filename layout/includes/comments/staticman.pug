@@ -1,0 +1,42 @@
+// Staticman comments partial for Hexo theme
+// - Put this file at: layout/includes/comments/staticman.pug
+
+#comments-container.post-copyright.staticman
+  - var staticman = (theme && theme.staticman) ? theme.staticman : {};
+  - // 计算评论 id（优先 page.comment_id -> page.slug -> page.path 最后一段）
+  - var comment_id = page.comment_id || page.slug || (page.path ? (page.path.split('/#more')[0].split('/').filter(Boolean).pop()) : (page.permalink || page.title)) || '';
+  h3 Comments
+  // 显示由 staticman 写入到 source/_data/comments/{{comment_id}}.yml 的评论（Hexo 构建时会把 data 文件映射到 site.data.comments）
+  if site.data && site.data.comments && site.data.comments[comment_id]
+    ul.comment-list
+      each c in site.data.comments[comment_id]
+        li.comment
+          .meta
+            span.name= c.name
+            if c.url
+              |  — 
+              a(href=c.url target='_blank' rel='noopener') Website
+            span.date= (c.date || c.datetime || '')
+          .content!= c.message
+  else
+    p No comments yet. Be the first to comment!
+
+  // 提交表单：注意 action 使用 theme.staticman.endpoint（在主题或站点 _config.yml 中配置）
+  form#staticman-form(action=staticman.endpoint || '' method='post' novalidate)
+    input(type='hidden' name='options[slug]' value=comment_id)
+    .form-row
+      label(for='sm-name') Name
+      input#sm-name(type='text' name='fields[name]' required)
+    .form-row
+      label(for='sm-email') Email (won't be published)
+      input#sm-email(type='email' name='fields[email]' required)
+    .form-row
+      label(for='sm-url') Website
+      input#sm-url(type='url' name='fields[url]')
+    .form-row
+      label(for='sm-message') Comment
+      textarea#sm-message(name='fields[message]' rows='6' required)
+    button#sm-submit(type='submit') Submit
+    p#sm-status(style='display:none;') 
+  // 引入客户端脚本（放到 source/js/comments/staticman.js）
+  script(src=url_for('js/comments/staticman.js'))
